@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZuraPlay - ألعاب متصفح فورية</title>
+    <style>
+        :root { --bg-color: #0f172a; --card-bg: #1e293b; --accent: #6366f1; --text: #f8fafc; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text); margin: 0; padding: 0; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: var(--card-bg); border-bottom: 1px solid #334155; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+        .hero { text-align: center; padding: 2rem 1rem; background: linear-gradient(to bottom, #1e293b, #0f172a); }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #334155; text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 140px; object-fit: cover; }
+        .card-body { padding: 1rem; }
+        .card-title { font-weight: bold; font-size: 1.1rem; }
+        
+        /* منطقة تشغيل اللعبة داخل الصفحة */
+        #gameArea { display: none; margin-top: 2rem; text-align: center; }
+        .player-box { position: relative; width: 100%; height: 550px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #334155; }
+        .player-box iframe { width: 100%; height: 100%; border: none; }
+        .back-btn { background: var(--accent); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-bottom: 1rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">⚡ ZuraPlay</div>
+    </header>
+
+    <!-- قسم قائمة الألعاب -->
+    <div id="homeArea">
+        <div class="hero">
+            <h1>منصة ZuraPlay للألعاب الفورية</h1>
+            <p>اختر لعبتك وابدأ باللعب فوراً على المتصفح!</p>
+        </div>
+
+        <div class="container">
+            <div class="grid">
+                <!-- لعبة 2048 -->
+                <div class="card" onclick="playGame('https://play2048.co/', 'لعبة 2048')">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5baf1e8bb940?w=400" alt="2048">
+                    <div class="card-body">
+                        <div class="card-title">لعبة 2048</div>
+                    </div>
+                </div>
+
+                <!-- لعبة باك مان -->
+                <div class="card" onclick="playGame('https://mariosg.github.io/pacman/', 'لعبة باك مان')">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400" alt="Pacman">
+                    <div class="card-body">
+                        <div class="card-title">باك مان الكلاسيكية</div>
+                    </div>
+                </div>
+
+                <!-- لعبة فلابي بيرد -->
+                <div class="card" onclick="playGame('https://sbstjn.github.io/flappy-bird/', 'لعبة فلابي بيرد')">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400" alt="Flappy Bird">
+                    <div class="card-body">
+                        <div class="card-title">فلابي بيرد السريعة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم مشغل اللعبة (يظهر عند الضغط على أي لعبة) -->
+    <div id="gameArea" class="container">
+        <button class="back-btn" onclick="goBack()">← العودة للقائمة الرئيسية</button>
+        <h2 id="gameTitle" style="margin-bottom: 1rem;"></h2>
+        <div class="player-box">
+            <iframe id="gameFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        function playGame(url, title) {
+            document.getElementById('homeArea').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('gameTitle').innerText = title;
+            document.getElementById('gameFrame').src = url;
+        }
+
+        function goBack() {
+            document.getElementById('gameFrame').src = ''; // إيقاف اللعبة عند الخروج
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('homeArea').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
